@@ -3,19 +3,20 @@ Using a docker container to build a project via mounting needed directories
 
 
 ## Used command
-
-docker run -it
-    --name devtest
-    --mount type=bind,source="$(pwd)"/project,target=/project,readonly
-    --mount type=bind,source="$(pwd)"/result,target=/result
-    adoptopenjdk/openjdk11:slim
-    bash -c "cd ./project && ./gradlew export.launch && /bin/bash"
-
+```
+docker run -it \
+    --name build \
+    --mount type=bind,source="$(pwd)"/project,target=/project,readonly \
+    --mount type=bind,source="$(pwd)"/result,target=/result \
+    adoptopenjdk/openjdk11:slim \
+    bash -c "cd ./project && ./gradlew export.launch && /bin/bash" \
+```
 
 ## Explanations
-
--it : interactive, attaches stdout to the container
+```
+-it : interactive, attaches shell to the container
 --name : assigns container a specific name
---mount : Mount source to target,roadonly (for read/write skip readonly)
-adoptopenjdk/openjdk11:slim is the used image
+--mount : mount source to target,roadonly (for read/write skip readonly)
+adoptopenjdk/openjdk11:slim is the used docker image
 bash -c : gives the string as command to the container
+```
